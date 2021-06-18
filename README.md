@@ -1,2 +1,0 @@
-# pikmin-routine
-Begin app
