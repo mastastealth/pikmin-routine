@@ -12,7 +12,7 @@
 
   const tasks = {
     am: [
-      { name: "Make Bed", time: 5, img: "tidy" },
+      { name: "Make Bed", time: 5, img: "bed" },
       { name: "Brush Your Teeth", time: 3, img: "brush" },
       { name: "Potty Break", time: 2, img: "poop" },
     ],

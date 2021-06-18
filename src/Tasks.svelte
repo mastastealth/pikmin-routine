@@ -85,7 +85,7 @@
 
     <div class="img animate__animated animate__pulse animate__infinite animate__slower">
       {#if time === "am"}
-        <img src="tidy.png" alt="All done." />
+        <img src="pencil.png" alt="All done." />
       {:else}
         <img src="sleep.png" alt="All done." />
       {/if}
