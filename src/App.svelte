@@ -1,39 +1,124 @@
 <script>
-  import { onMount } from 'svelte'
-  export let name
-  export let message
-  onMount(async () => {
-    let data = await (await fetch('/api')).json()
-    message = data.msg
-    console.log('MESSAGE: ', message)
-  })
+  import { Howl } from 'howler';
+	import Tasks from './Tasks.svelte';
+
+  const music = new Howl({
+    src: ['pikmin.mp3'],
+    loop: true,
+    volume: 0.2
+  });
+
+  let mode = null;
+
+  const tasks = {
+    am: [
+      { name: "Make Bed", time: 5, img: "tidy" },
+      { name: "Brush Your Teeth", time: 3, img: "brush" },
+      { name: "Potty Break", time: 2, img: "poop" },
+    ],
+    pm: [
+      { name: "Tidy Up", time: 5, img: "tidy" },
+      { name: "Brush Your Teeth", time: 3, img: "brush" },
+      { name: "Potty Break", time: 2, img: "poop" },
+    ]
+  }
+
+  // Grab time
+  const date = new Date();
+  const hr = date.getHours();
+  let time = hr < 12 ? 'am' : 'pm';
+  let canStart = true || (hr >= 8 && hr <= 10) || (hr >= 7 && hr <= 9);
+  let interval;
+
+  const setMode = (m) => {
+    mode = m;
+    checkMode();
+  }
+
+  function checkMode() {
+    if (mode === 'routine') {
+      music.play();
+      setTimer(300);
+    } else {
+      music.stop();
+      timer = 0;
+      clearInterval(interval);
+    }
+  }
+
+  // Timer code
+  let timer;
+
+  function setTimer(n = 11) {
+    if (interval) clearInterval(interval);
+    timer = n;
+
+    interval = setInterval(function() {
+      timer -= 1;
+      if (timer === 0) clearInterval(interval);
+    }, 1000);
+  }
+
+  function stopTimer() {
+    clearInterval(interval);
+    timer = -1;
+  }
 </script>
 
-<main>
-  <h1>Hello {name}!</h1>
-  <h2>{message}</h2>
-  <h3>Change me!</h3>
-  <p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
+
+<div class="container" data-mode={mode}>
+  <section class="main">
+    <img src="e.png" alt="Captain E" class="eman animate__animated animate__wobble animate__infinite animate__slower">
+
+    <button class="start orb" disabled={!canStart} on:click={() => { setMode('routine')} }>
+      {time === 'pm' ? '🌘' : '☀️'}
+    </button>
+    <!-- <button class="orb" on:click={() => { setMode('score')} }>Score</button> -->
+  </section>
+
+  <section class="routine" data-time={time}>
+    <Tasks 
+      tasks={tasks[time]} 
+      timer={timer} 
+      time={time}
+      mode={mode}
+      setTimer={setTimer} 
+      stopTimer={stopTimer}
+      setMode={setMode}
+    /> 
+    <button on:click={() => { setMode(null)} }>Home</button>
+  </section>
+
+  <section class="score">
+    <button on:click={() => { setMode(null)} }>Home</button>
+  </section>
+</div>
 
 <style>
-  main {
-    text-align: center;
-    padding: 1em;
-    max-width: 240px;
-    margin: 0 auto;
+  .orb {
+    font-size: 5em;
   }
 
-  h1 {
-    color: #ff3e00;
-    text-transform: uppercase;
-    font-size: 4em;
-    font-weight: 100;
+  section:not(.main) .orb {
+    position: absolute;
+    top: 10px; right: 10px;
   }
 
-  @media (min-width: 640px) {
-    main {
-      max-width: none;
+  .start {
+    background: transparent;
+    border: 0 none;
+    position: absolute;
+    bottom: 20px; left: 50%;
+    transform: translateX(-50%);
+  }
+  .start:active {
+      transform: translateX(-50%) scale(0.9);
     }
+
+  .eman {
+    display: block;
+    filter:drop-shadow(1px 1px 5px rgba(0, 0, 0, 0.2));
+    margin: 15vh auto;
+    max-width: 80%;
   }
 </style>

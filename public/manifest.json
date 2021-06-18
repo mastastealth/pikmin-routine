@@ -1,0 +1,15 @@
+{
+  "theme_color" : "#4a90e2",
+  "background_color" : "#4a90e2",
+  "display" : "fullscreen",
+  "scope" : "/",
+  "start_url" : "/",
+  "name" : "Captain E",
+  "short_name" : "Captain E",
+  "description" : "Routine app for captains!",
+  "icons": [{
+    "src": "e_sm.png",
+    "sizes": "64x64",
+    "type": "image/png"
+  }]
+}
