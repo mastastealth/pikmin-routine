@@ -65,7 +65,7 @@
       <header>
         <h2>{task.name}</h2>
         <div class="timer">
-          <div class="bar" style="transform: scale({timer /(task.time * 60)})"></div>
+          <div class="bar" style="transform: scaleX({timer /(task.time * 60)})"></div>
         </div>
       </header>
 
