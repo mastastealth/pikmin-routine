@@ -32,6 +32,7 @@
   function showFail() {
     sfx_oof.play();
     showOof = true;
+    stopTimer();
   }
 
   function nextTask() {
