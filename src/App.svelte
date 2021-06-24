@@ -14,12 +14,12 @@
     am: [
       { name: "Make Bed", time: 5, img: "bed" },
       { name: "Brush Your Teeth", time: 3, img: "brush" },
-      { name: "Potty Break", time: 2, img: "poop" },
+      { name: "Potty Break", time: 3, img: "poop" },
     ],
     pm: [
       { name: "Tidy Up", time: 5, img: "tidy" },
       { name: "Brush Your Teeth", time: 3, img: "brush" },
-      { name: "Potty Break", time: 2, img: "poop" },
+      { name: "Potty Break", time: 3, img: "poop" },
     ]
   }
 
@@ -43,6 +43,7 @@
       music.stop();
       timer = 0;
       clearInterval(interval);
+      canStart = false;
     }
   }
 
@@ -111,8 +112,12 @@
     bottom: 20px; left: 50%;
     transform: translateX(-50%);
   }
-  .start:active {
+    .start:active {
       transform: translateX(-50%) scale(0.9);
+    }
+
+    .start[disabled] {
+      filter: grayscale(100%);
     }
 
   .eman {

@@ -120,10 +120,22 @@
     border: 2px solid black;
     border-radius: 5px;
     height: 50px;
+    position: relative;
   }
+    .timer:before {
+      background: white;
+      border-radius: 8px;
+      content: '';
+      height: 10px;
+      opacity: 0.5;
+      position: absolute;
+      left: 10px; top: 5px;
+      width: calc(100% - 20px);
+      z-index: 1;
+    }
 
   .bar {
-    background: yellow;
+    background: linear-gradient(to bottom, yellow, goldenrod);
     height: 100%;
     transform-origin: left center;
   }
@@ -133,7 +145,7 @@
     height: 100%;
   }
     .tasks[data-time="am"] { background: skyblue; }
-    .tasks[data-time="pm"] { background: rgb(38, 28, 73); }
+    .tasks[data-time="pm"] { background: linear-gradient(to bottom, rgb(38, 28, 73), rgb(25, 2, 54)); }
 
   .task {
     display: flex;
@@ -161,10 +173,11 @@
     }
 
     .task button {
-      background: green;
+      background: linear-gradient(to bottom, green, rgb(0, 98, 49));;
       border: 2px solid darkgreen;
       color: white;
       font-size: 2em;
+      font-weight: bold;
       padding: 10px 30px;
     }
 
@@ -216,17 +229,18 @@
 
     .yay button,
     .oof button {
-      background: green;
+      background: linear-gradient(to bottom, green, rgb(0, 98, 49));
       border: 2px solid darkgreen;
       color: white;
       display: block;
       font-size: 1.5em;
+      font-weight: bold;
       padding: 10px 30px;
       width: 100%;
     }
 
     .oof button {
-      background: red;
+      background: linear-gradient(to bottom, red, rgb(168, 53, 0));
       border-color: darkred;
     }
 
